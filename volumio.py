@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """
-Polyglot v2 node server Volumio Media Server control.
+Polyglot v3 node server Volumio Media Server control.
 Copyright (C) 2021 Robert Paauwe
 """
-import polyinterface
+import udi_interface
 import sys
 from nodes import controller
 
-LOGGER = polyinterface.LOGGER
+LOGGER = udi_interface.LOGGER
 
 if __name__ == "__main__":
     try:
-        polyglot = polyinterface.Interface('Volumio')
+        polyglot = udi_interface.Interface([])
         polyglot.start()
-        control = controller.Controller(polyglot)
-        control.runForever()
+        controller.Controller(polyglot, "controller", "controller", "Volumio")
+        polyglot.runForever()
     except (KeyboardInterrupt, SystemExit):
         sys.exit(0)
         

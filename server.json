@@ -1,6 +1,6 @@
 {
     "name": "Volumio",
-    "docs": "https://github.com/bpaauwe/udi-volumio-poly/README.md",
+    "docs": "https://github.com/BME-nodeservers/udi-volumio-poly/README.md",
     "type": "python3",
     "executable": "volumio.py",
     "install": "install.sh",
@@ -9,14 +9,24 @@
     "shortPoll": "5",
     "longPoll": "60",
     "profile_version": "1.0.0",
+	"customParams": {
+		"Volumio 1" : ""
+	},
     "credits": [
     	{
     		"title": "Volumio: A node server for Volumio Media Servers",
     		"author": "Bob Paauwe",
-    		"version": "1.0.0",
-    		"date": "February 10, 2021",
-    		"source": "https://github.com/bpaauwe/udi-volumio-poly",
-			"license": "https://github.com/bpaauwe/udi-volumio-poly/LICENSE"
+    		"version": "2.0.0",
+    		"date": "March 10, 2021",
+    		"source": "https://github.com/BME-nodeservers/udi-volumio-poly",
+			"license": "https://github.com/BME-nodeservers/udi-volumio-poly/LICENSE"
 		}
-	]
+	],
+	"store" : {
+		"developer": "bpaauwe@bobsplace.com",
+		"price": 5.00,
+		"recurring": 0,
+		"recurring_interval": "month",
+		"recurring_period": 0
+	}
 }

@@ -1,10 +1,10 @@
 
 
-import polyinterface
+import udi_interface
 import http.server
 import json
 
-LOGGER = polyinterface.LOGGER
+LOGGER = udi_interface.LOGGER
 
 # start server with self.httpserver = Server(('', self.port), handler)
 #
@@ -26,11 +26,13 @@ class VHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(message.encode('utf_8'))
 
     def do_POST(self):
-        #LOGGER.error('POST: {}'.format(self.path))
+        LOGGER.error('POST: {}'.format(self.path))
         content_length = int(self.headers['content-Length'])
         post_data = json.loads(self.rfile.read(content_length))
 
         """
+        The incoming URL should have the name of the player this is for.
+
         We get this for changes like new song, play, pause, volume, repeat, shuffle
         so check the post data for changes and propate those back
         """

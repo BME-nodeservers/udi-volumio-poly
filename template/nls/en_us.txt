@@ -1,0 +1,26 @@
+# controller
+ND-Volumio-NAME = Volumio
+ND-Volumio-ICON = Output
+ST-ctl-ST-NAME = NodeServer Online
+ST-ctl-GV1-NAME = Selected Source
+ST-ctl-GV4-NAME = Shuffle
+ST-ctl-GV5-NAME = Repeat
+ST-ctl-MODE-NAME = State
+ST-ctl-SVOL-NAME = Volume
+CMD-ctl-PREV-NAME = Previous
+CMD-ctl-NEXT-NAME = Next
+CMD-ctl-PLAY-NAME = Play
+CMD-ctl-PAUSE-NAME = Pause
+CMD-ctl-STOP-NAME = Stop
+CMD-ctl-VOLUME-NAME = Volume
+CMD-ctl-SHUFFLE-NAME = Shuffle
+CMD-ctl-REPEAT-NAME = Repeat
+CMD-ctl-SOURCE-NAME = Selected Source
+
+SWITCH-0 = Off
+SWITCH-1 = On
+
+MODE-0 = Stopped
+MODE-1 = Paused
+MODE-2 = Playing
+

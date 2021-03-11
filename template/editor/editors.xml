@@ -1,0 +1,21 @@
+<editors>
+	<!-- Boolean -->
+	<editor id="bool">
+		<range uom="2" subset="0,1" />
+	</editor>
+	<editor id="SOURCE">
+		<range uom="25" min="0" max="1" nls="SOURCE" />
+	</editor>
+	<editor id="MODE">
+		<range uom="25" min="0" max="2" nls="MODE" />
+	</editor>
+	<editor id="SWITCH">
+		<range uom="25" min="0" max="1" nls="SWITCH" />
+	</editor>
+	<editor id="VOLUME">
+		<range uom="12" min="0" max="100" />
+	</editor>
+	<editor id="TIME">
+		<range uom="58" min="0" max="100" />
+	</editor>
+</editors>
