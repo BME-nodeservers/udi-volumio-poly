@@ -12,7 +12,7 @@ VERSION_FILE = "profile/version.txt"
 # application names.
 
 def write_nls(logger, player_list):
-    logger.info("{0} Writing profile/nls/en_us.txt".format(pfx))
+    logger.info("Writing profile/nls/en_us.txt")
     if not os.path.exists("profile/nls"):
         try:
             os.makedirs("profile/nls")
@@ -75,6 +75,7 @@ NODEDEF_TMPL = "  <nodeDef id=\"%s\" nodeType=\"139\" nls=\"%s\">\n"
 STATUS_TMPL = "      <st id=\"%s\" editor=\"_25_0_R_0_%d_N_%s\" />\n"
 LAUNCH_TMPL = "          <p id=\"\" editor=\"_25_0_R_0_%d_N_%s\" init=\"%s\" />\n"
 def write_nodedef(logger, player_list):
+    logger.info("Writing profile/nodedef/nodedefs.xml")
     nodedef = open("profile/nodedef/nodedefs.xml", "w")
 
     # First, write the controller node definition
