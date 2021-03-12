@@ -2,6 +2,7 @@
 
 import udi_interface
 import http.server
+import urllib.parse
 import json
 
 LOGGER = udi_interface.LOGGER
@@ -26,7 +27,7 @@ class VHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(message.encode('utf_8'))
 
     def do_POST(self):
-        LOGGER.error('POST: {}'.format(self.path))
+        LOGGER.debug('POST: {}'.format(self.path))
         content_length = int(self.headers['content-Length'])
         post_data = json.loads(self.rfile.read(content_length))
 
@@ -47,7 +48,7 @@ class VHandler(http.server.BaseHTTPRequestHandler):
             LOGGER.debug('Play  :  {}'.format(info['status']))
             if self.ctlnode is not None:
                 LOGGER.debug('Setting control node drivers')
-                self.ctlnode.status(info)
+                self.ctlnode.status(urllib.parse.unquote(self.path), info)
 
         self.respond()
 
@@ -59,7 +60,7 @@ class Server(http.server.HTTPServer):
     stop = False
 
     def serve_forever(self, controller):
-        LOGGER.error('starting forever loop')
+        LOGGER.info('Starting listening for notification updates.')
         self.RequestHandlerClass.ctlnode = controller
 
         while not self.stop:

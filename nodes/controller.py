@@ -34,8 +34,14 @@ class Controller(udi_interface.Node):
 
         self.poly.subscribe(polyglot.CUSTOMPARAMS, self.parameterHandler)
         self.poly.subscribe(polyglot.START, self.start, address)
+        self.poly.subscribe(polyglot.ADDNODEDONE, self.nodeDoneHandler)
         self.poly.ready()
         self.poly.addNode(self)
+
+    def nodeDoneHandler(self, nodeinfo):
+        LOGGER.debug('node {} has been added!!!'.format(nodeinfo))
+        if nodeinfo['address'] != self.address:
+            self.player_list[nodeinfo['name']]['node'].setNotification()
 
     # Process changes to customParameters
     def parameterHandler(self, params):
@@ -78,6 +84,11 @@ class Controller(udi_interface.Node):
         LOGGER.info('Starting notification web server process')
         self.start_server()
 
+        """
+        for name in self.player_list:
+            self.player_list[name]['node'].setNotification()
+        """
+
         LOGGER.info('Node server started')
 
     def getIP(self, local):
@@ -113,6 +124,11 @@ class Controller(udi_interface.Node):
 
         self.player_list[name] = {'node_id': address, 'sources': src_map, 'node': node}
 
+    def status(self, path, info):
+        name = path.lstrip('/')
+        self.player_list[name]['node'].status(info)
+
+
     def query(self):
         for node in self.nodes:
             self.nodes[node].reportDrivers()
@@ -134,6 +150,7 @@ class Controller(udi_interface.Node):
         try:
             self.server = myserver.Server(('', 8383), myserver.VHandler)
             self.server.serve_forever(self)
+            self.server.ctlnode = self
         except Exception as e:
             LOGGER.error('web server failed: {}'.format(e))
 
@@ -141,7 +158,7 @@ class Controller(udi_interface.Node):
       TODO: figure out how to deal with notification server....
     """
     def start_server(self):
-        LOGGER.error('Starting notification server')
+        LOGGER.info('Starting notification server')
         self.notification_thread = threading.Thread(target = self.web_server)
         self.notification_thread.daemon = True
         self.notification_thread.start()

@@ -23,31 +23,15 @@ class VolumioNode(udi_interface.Node):
         self.getSourceList()
 
 
-    """
-      Can this be rolled into __init__?
-    """
-    def start_client(self, ip):
-        LOGGER.error('Status: {}'.format(self.send_command('getState')))
-
-        #LOGGER.error('Starting notification server')
-        #self.notification_thread = threading.Thread(target = self.web_server)
-        #self.notification_thread.daemon = True
-        #self.notification_thread.start()
-
-        #LOGGER.error('network = {}'.format(self.poly.network_interface))
-        #address = self.poly.network_interface['addr']
-        #url = 'http://' + address + ':8383/volumiostatus'
-        #self.post_request('pushNotificationUrls', {"url": url})
-
-        #LOGGER.error('{}'.format(self.send_command('pushNotificationUrls')))
-
-        # Get current status
+    """ Called after node has been added """
+    def setNotification(self):
+        LOGGER.debug('Status: {}'.format(self.send_command('getState')))
         info = self.send_command('getState')
         self.status(info, True)
 
         # set up notifications
         self.post_request('pushNotificationUrls', {"url": self.notify})
-        #LOGGER.error('{}'.format(self.send_command('pushNotificationUrls')))
+        LOGGER.debug('{}'.format(self.send_command('pushNotificationUrls')))
 
 
     def send_command(self, command, value=None):
@@ -102,7 +86,6 @@ class VolumioNode(udi_interface.Node):
         pass
 
     def status(self, info, force=False):
-        LOGGER.debug('Setting initial status')
         self.setDriver('SVOL', int(info['volume']), True, force)
         self.setDriver('DUR', int(info['duration']), True, force)
         if info['status'].lower() == 'stop':
@@ -127,7 +110,7 @@ class VolumioNode(udi_interface.Node):
         self.sources = []
         root = self.send_command('browse')
         for src in root['navigation']['lists']:
-            LOGGER.error('Found {}'.format(src['uri']))
+            LOGGER.debug('Found {}'.format(src['uri']))
             if src['uri'] == 'favourites':
                 self.sources.append({'name': 'Favourites', 'uri': 'favourites'})
             elif src['uri'] == '/pandora':
@@ -142,7 +125,7 @@ class VolumioNode(udi_interface.Node):
 
         playlists = self.send_command('listplaylists')
         for play in playlists:
-            LOGGER.error('Found {}'.format(play))
+            LOGGER.debug('Found {}'.format(play))
             self.sources.append({'name': play, 'uri': 'playplaylist'})
 
         """
@@ -156,7 +139,7 @@ class VolumioNode(udi_interface.Node):
         """
 
     def process_cmd(self, cmd=None):
-        LOGGER.error('ISY sent: {}'.format(cmd))
+        LOGGER.debug('ISY sent: {}'.format(cmd))
         if cmd is not None:
             if cmd['cmd'] == 'PLAY':
                 self.send_command('play')
@@ -236,7 +219,6 @@ class VolumioNode(udi_interface.Node):
 
     drivers = [
             {'driver': 'ST', 'value': 1, 'uom': 2},       # player status
-            {'driver': 'GV0', 'value': 0, 'uom': 25},     # Log Level
             {'driver': 'GV1', 'value': 0, 'uom': 25},     # Source
             {'driver': 'SVOL', 'value': 0, 'uom': 12},    # Volume
             {'driver': 'DUR', 'value': 0, 'uom': 58},     # duration

@@ -41,7 +41,7 @@ def write_nls(logger, player_list):
         nls.write("CMD-ctl-VOLUME-NAME = Volume\n")
         nls.write("CMD-ctl-SHUFFLE-NAME = Shuffle\n")
         nls.write("CMD-ctl-REPEAT-NAME = Repeat\n")
-        nls.write("CMD-ctl-SOURCE-NAME = Selected Source\n")
+        nls.write("CMD-ctl-SOURCE-NAME = Source\n")
         nls.write("\n")
         nls.write("SWITCH-0 = Off\n")
         nls.write("SWITCH-1 = On\n")
@@ -61,8 +61,8 @@ def write_nls(logger, player_list):
             nls.write("\n")
             for src in player_list[rk]['sources']:
                 logger.debug(player_list[rk]['sources'][src])
-                (name, cnt) = player_list[rk]['sources'][src]
-                nls.write("%s-%d = %s\n" %(node_id, cnt, name))
+                (source, cnt) = player_list[rk]['sources'][src]
+                nls.write("%s-%d = %s\n" %(node_id, cnt, source['name']))
             nls.write("\n")
 
         nls.close()
