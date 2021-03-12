@@ -5,7 +5,7 @@ This is a node server to interface a [Volumio](http://www.volumio.org) Music pla
 [Universal Devices ISY994] (https://www.universal-devices.com/residential/ISY) series of
 controllers. It is written to run under the
 [Polyglot interface](http://www.universal-devices.com/developers/polyglot/docs/) with
-[Polyglot V2](https://github.com/Einstein42/udi-polyglotv2)
+Polyglot V3 running on a [Polisy](https://www.universal-devices.com/product/polisy/)
 
 Volumio is music server software designed to run on lightweight hardware like a Raspberry Pi.
 It can play music from multiple sources including a local hard drive, a NAS, music servers,
@@ -24,7 +24,7 @@ level, turn repeat and shuffle on/off is also available.
 2. Go to the Polyglot Store in the UI and install.
 3. Add NodeServer in Polyglot Web to a free slot.
 4. From the Dashboard, select the Volumio node server and go to the configuration tab.
-5. Configure the IP address of the Volumio player.
+5. Configure the IP address of the Volumio player(s).
 
 ### Node Settings
 The settings for this node are:
@@ -34,22 +34,20 @@ The settings for this node are:
 #### Long Poll
    * Not used
 
-#### Volumio IP Address
-   * The IP address (or name) of the Volumio player.
+#### Volumio name / IP Address
+   * The list of Volumio devices and their IP addresses.
 
 
 ## Requirements
 
-1. Polyglot V2 running on a supported platform.
-2. ISY994 series controller running firmware version 5.3 or later
-3. Volumio music player
-
-# Upgrading
-
-If an update to the node server becomes availabe, it will show up in the Nodeserver store with an "Update" button next to 
-the Volumio listing.  Click the "Update" button and the latest version of the Volumio node server will be installed.
+1. Polyglot V3.
+2. ISY firmware 5.3.x or later
+3. One or more Volumio music players
 
 # Release Notes
 
+- 3.0.0 03/12/2021
+   - Ported to PG3
+   - Added support for multiple Volumio players
 - 1.0.0 02/15/2021
    - Initial version published to github

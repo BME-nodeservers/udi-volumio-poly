@@ -1,6 +1,5 @@
 udi_interface>=3.0.1
 requests>=2.0
-python-socketio[client]>=5.0
 in_place>=0.4.0
 dnspython>=2.1.0
 
