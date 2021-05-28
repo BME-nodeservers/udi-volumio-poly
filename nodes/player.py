@@ -120,8 +120,12 @@ class VolumioNode(udi_interface.Node):
                 for s in sl:
                     LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
                     self.sources.append({'name': s['name'], 'uri': s['uri']})
-            elif src['uri'] == '/spotify':
-                self.sources.append({'name': 'Spotify', 'uri': '/spotify'})
+            elif src['uri'] == 'spotify':
+                stations = self.send_command('browse', 'uri=spotify')
+                sl = stations['navigation']['lists'][0]['items']
+                for s in sl:
+                    LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
+                    self.sources.append({'name': s['name'], 'uri': s['uri']})
 
         playlists = self.send_command('listplaylists')
         for play in playlists:
@@ -202,8 +206,8 @@ class VolumioNode(udi_interface.Node):
                         self.send_command('play')
 
                     self.setDriver('GV1', idx, True)
-                except:
-                    LOGGER.debug('Index {} not found in {}'.format(idx, self.sources))
+                except Exception as e:
+                    LOGGER.error('Error trying to start source {} ({})'.format(src, e))
 
     commands = {
             'VOLUME': process_cmd,
