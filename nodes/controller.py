@@ -36,7 +36,7 @@ class Controller(udi_interface.Node):
         self.poly.subscribe(polyglot.START, self.start, address)
         self.poly.subscribe(polyglot.ADDNODEDONE, self.nodeDoneHandler)
         self.poly.ready()
-        self.poly.addNode(self)
+        #self.poly.addNode(self)
 
     def nodeDoneHandler(self, nodeinfo):
         LOGGER.debug('node {} has been added!!!'.format(nodeinfo))
@@ -113,7 +113,7 @@ class Controller(udi_interface.Node):
         notify = 'http://' + self.poly.network_interface['addr'] + ':8383/' + name
 
         address = 'volumio_' + ip.split('.')[3]
-        node = player.VolumioNode(self.poly, self.address, address, name, url, notify)
+        node = player.VolumioNode(self.poly, address, address, name, url, notify)
 
         cnt = 0
         src_map = {}
