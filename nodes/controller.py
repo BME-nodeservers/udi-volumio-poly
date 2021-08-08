@@ -17,7 +17,8 @@ from nodes import player
 LOGGER = udi_interface.LOGGER
 Custom = udi_interface.Custom
 
-class Controller(udi_interface.Node):
+#class Controller(udi_interface.Node):
+class Controller(object):
     id = 'Volumio'
     def __init__(self, polyglot, primary, address, name):
         super(Controller, self).__init__(polyglot, primary, address, name)
