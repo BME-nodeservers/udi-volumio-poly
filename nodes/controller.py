@@ -17,15 +17,11 @@ from nodes import player
 LOGGER = udi_interface.LOGGER
 Custom = udi_interface.Custom
 
-#class Controller(udi_interface.Node):
 class Controller(object):
     id = 'Volumio'
     def __init__(self, polyglot, primary, address, name):
-        #super(Controller, self).__init__(polyglot, primary, address, name)
         self.poly = polyglot
         self.name = name
-        self.address = address
-        self.primary = primary
         self.configured = False
         self.server = None
         self.player_list = {}
@@ -35,13 +31,13 @@ class Controller(object):
 
         self.poly.subscribe(polyglot.CUSTOMPARAMS, self.parameterHandler)
         self.poly.subscribe(polyglot.ADDNODEDONE, self.nodeDoneHandler)
+        self.poly.setCustomParamsDoc()
         self.poly.ready()
         self.start()
 
     def nodeDoneHandler(self, nodeinfo):
         LOGGER.debug('node {} has been added!!!'.format(nodeinfo))
-        if nodeinfo['address'] != self.address:
-            self.player_list[nodeinfo['name']]['node'].setNotification()
+        self.player_list[nodeinfo['name']]['node'].setNotification()
 
     # Process changes to customParameters
     def parameterHandler(self, params):
@@ -75,7 +71,6 @@ class Controller(object):
 
     def start(self):
         LOGGER.info('Starting node server')
-        self.poly.setCustomParamsDoc()
 
         while not self.configured:
             LOGGER.debug('Waiting for configuration')
@@ -164,8 +159,10 @@ class Controller(object):
         self.notification_thread.start()
 
 
+    '''
     drivers = [
             {'driver': 'ST', 'value': 1, 'uom': 2},       # node server status
             ]
+    '''
 
     
