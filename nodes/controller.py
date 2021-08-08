@@ -21,7 +21,7 @@ Custom = udi_interface.Custom
 class Controller(object):
     id = 'Volumio'
     def __init__(self, polyglot, primary, address, name):
-        super(Controller, self).__init__(polyglot, primary, address, name)
+        #super(Controller, self).__init__(polyglot, primary, address, name)
         self.poly = polyglot
         self.name = name
         self.address = address
