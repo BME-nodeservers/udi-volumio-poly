@@ -114,18 +114,24 @@ class VolumioNode(udi_interface.Node):
             if src['uri'] == 'favourites':
                 self.sources.append({'name': 'Favourites', 'uri': 'favourites'})
             elif src['uri'] == '/pandora':
-                #TODO: Look up pandora stations
-                stations = self.send_command('browse', 'uri=/pandora')
-                sl = stations['navigation']['lists'][0]['items']
-                for s in sl:
-                    LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
-                    self.sources.append({'name': s['name'], 'uri': s['uri']})
+                try:
+                    stations = self.send_command('browse', 'uri=/pandora')
+                    sl = stations['navigation']['lists'][0]['items']
+                    for s in sl:
+                        LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
+                        self.sources.append({'name': s['name'], 'uri': s['uri']})
+                except Exception as e:
+                    LOGGER.error('Failed to get Pandora stations: {}'.format(e))
             elif src['uri'] == 'spotify':
-                stations = self.send_command('browse', 'uri=spotify')
-                sl = stations['navigation']['lists'][0]['items']
-                for s in sl:
-                    LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
-                    self.sources.append({'name': s['name'], 'uri': s['uri']})
+                try:
+                    stations = self.send_command('browse', 'uri=spotify')
+                    sl = stations['navigation']['lists'][0]['items']
+                    for s in sl:
+                        LOGGER.error(s)
+                        LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
+                        self.sources.append({'name': s['name'], 'uri': s['uri']})
+                except Exception as e:
+                    LOGGER.error('Failed to get Spotify stations: {}'.format(e))
 
         playlists = self.send_command('listplaylists')
         for play in playlists:
