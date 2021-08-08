@@ -33,11 +33,9 @@ class Controller(udi_interface.Node):
         self.Notices = Custom(polyglot, 'notices')
 
         self.poly.subscribe(polyglot.CUSTOMPARAMS, self.parameterHandler)
-        #self.poly.subscribe(polyglot.START, self.start, address)
-        self.poly.subscribe(polyglot.START, self.start)
         self.poly.subscribe(polyglot.ADDNODEDONE, self.nodeDoneHandler)
         self.poly.ready()
-        #self.poly.addNode(self)
+        self.start()
 
     def nodeDoneHandler(self, nodeinfo):
         LOGGER.debug('node {} has been added!!!'.format(nodeinfo))
