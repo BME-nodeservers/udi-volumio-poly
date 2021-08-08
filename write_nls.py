@@ -100,6 +100,7 @@ def write_nodedef(logger, player_list):
 
         nodedef.write(NODEDEF_TMPL % (node_id, 'ctl'))
         nodedef.write("    <sts>\n")
+        nodedef.write("      <st id=\"ST\" editor=\"bool\" />\n")
         nodedef.write("      <st id=\"GV1\" editor=\"_25_0_R_0_%d_N_%s\" />\n" % (src_cnt, node_id))
         nodedef.write("      <st id=\"GV4\" editor=\"SWITCH\" />\n")
         nodedef.write("      <st id=\"GV5\" editor=\"SWITCH\" />\n")
