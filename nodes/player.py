@@ -126,16 +126,15 @@ class VolumioNode(udi_interface.Node):
                 try:
                     stations = self.send_command('browse', 'uri=spotify')
                     for group in stations['navigation']['lists']:
-                        LOGGER.error('Group title: {}'.format(group['title']))
+                        LOGGER.debug('Group title: {}'.format(group['title']))
                         if 'My Music' in group['title']:
                             for sl in group['items']:
-                                LOGGER.error('{} -> {}'.format(sl['title'], sl['uri']))
+                                LOGGER.debug('{} -> {}'.format(sl['title'], sl['uri']))
                                 mymusic = self.send_command('browse', 'uri={}'.format(sl['uri']))
-                                LOGGER.error('My Music: {}'.format(mymusic))
                                 for s in mymusic['navigation']['lists'][0]['items']:
                                 
                                     if s['type'] == 'playlist':
-                                        LOGGER.error('found: {} {}'.format(s['title'], s['uri']))
+                                        LOGGER.debug('found: {} {}'.format(s['title'], s['uri']))
                                         self.sources.append({'name': 'Spotify: {}'.format(s['title']), 'uri': s['uri']})
                 except Exception as e:
                     LOGGER.error('Failed to get Spotify stations: {}'.format(e))
