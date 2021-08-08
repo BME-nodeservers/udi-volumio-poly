@@ -46,7 +46,9 @@ The settings for this node are:
 
 # Release Notes
 
-- 3.0.0 03/12/2021
+- 2.0.1 08/08/2021
+   - Removed controller node, it's not used for anything
+- 2.0.0 03/12/2021
    - Ported to PG3
    - Added support for multiple Volumio players
 - 1.0.0 02/15/2021
