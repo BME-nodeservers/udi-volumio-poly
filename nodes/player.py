@@ -119,17 +119,24 @@ class VolumioNode(udi_interface.Node):
                     sl = stations['navigation']['lists'][0]['items']
                     for s in sl:
                         LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
-                        self.sources.append({'name': s['name'], 'uri': s['uri']})
+                        self.sources.append({'name': 'Pandora: {}'.format(s['name']), 'uri': s['uri']})
                 except Exception as e:
                     LOGGER.error('Failed to get Pandora stations: {}'.format(e))
             elif src['uri'] == 'spotify':
                 try:
                     stations = self.send_command('browse', 'uri=spotify')
-                    sl = stations['navigation']['lists'][0]['items']
-                    for s in sl:
-                        LOGGER.error(s)
-                        LOGGER.debug('found: {} {}'.format(s['name'], s['uri']))
-                        self.sources.append({'name': s['name'], 'uri': s['uri']})
+                    for group in stations['navigation']['lists']:
+                        LOGGER.error('Group title: {}'.format(group['title']))
+                        if 'My Music' in group['title']:
+                            for sl in group['items']:
+                                LOGGER.error('{} -> {}'.format(sl['title'], sl['uri']))
+                                mymusic = self.send_command('browse', 'uri={}'.format(sl['uri']))
+                                LOGGER.error('My Music: {}'.format(mymusic))
+                                for s in mymusic['navigation']['lists'][0]['items']:
+                                
+                                    if s['type'] == 'playlist':
+                                        LOGGER.error('found: {} {}'.format(s['title'], s['uri']))
+                                        self.sources.append({'name': 'Spotify: {}'.format(s['title']), 'uri': s['uri']})
                 except Exception as e:
                     LOGGER.error('Failed to get Spotify stations: {}'.format(e))
 
