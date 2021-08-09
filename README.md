@@ -46,6 +46,9 @@ The settings for this node are:
 
 # Release Notes
 
+- 2.0.2 08/09/2021
+   - Fix source list (remove extra entry)
+   - Improve configuration help
 - 2.0.1 08/08/2021
    - Removed controller node, it's not used for anything
 - 2.0.0 03/12/2021
