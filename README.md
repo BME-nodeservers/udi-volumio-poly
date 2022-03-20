@@ -46,6 +46,8 @@ The settings for this node are:
 
 # Release Notes
 
+- 2.0.3 03/20/2022
+   - fix shuffle and repeat commands.
 - 2.0.2 08/09/2021
    - Fix source list (remove extra entry)
    - Improve configuration help
