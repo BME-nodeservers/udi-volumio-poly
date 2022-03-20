@@ -170,13 +170,13 @@ class VolumioNode(udi_interface.Node):
             elif cmd['cmd'] == 'VOLUME':
                 self.send_command('volume', 'volume=' + cmd['value'])
             elif cmd['cmd'] == 'SHUFFLE':
-                if cmd['value'] == 0:
+                if cmd['value'] == '0':
                     value = 'false'
                 else:
                     value = 'true'
                 self.send_command('random', 'value=' + value)
             elif cmd['cmd'] == 'REPEAT':
-                if cmd['value'] == 0:
+                if cmd['value'] == '0':
                     value = 'false'
                 else:
                     value = 'true'
